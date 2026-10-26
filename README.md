@@ -24,7 +24,7 @@ DSA problems appear inside the tracks where real systems use them (LRU cache nex
 
 ## Quick start
 
-Requires JDK 21 (Maven is downloaded by the wrapper).
+Requires JDK 21 (Maven is downloaded by the wrapper). The SQL katas start a real PostgreSQL inside the tests: no Docker needed.
 
 ```
 java quiz/Quiz.java                                   # 10 questions: the ones due for review first, then new ones
@@ -53,8 +53,8 @@ Ordered so that each track builds on the ones before it.
 |---|---|---|---|---|---|
 | 01 | [Java core](tracks/01-java-core/) | JVM, types, Strings, OOP, equals/hashCode, exceptions | collections internals, generics, streams, records/sealed | JVM memory, GC, leaks, diagnostics, Java 8-21 | **Built**: 3 lessons, 12 katas, 62 questions |
 | 02 | [Concurrency](tracks/02-concurrency/) | threads, races, synchronized, volatile, interruption | pools, CompletableFuture, locks, concurrent collections, queues | memory model, deadlocks, stampedes, virtual threads, ThreadLocal, cross-instance | **Built**: 3 lessons, 10 katas, 60 questions |
-| 03 | Build tools | Maven lifecycle, pom, dependencies, scopes | profiles, plugins, multi-module, conflicts, wrapper | reproducible builds, BOMs, CI caching, Gradle | Planned (phase 2) |
-| 04 | SQL and databases | tables, keys, joins, GROUP BY | indexes and EXPLAIN, window functions, transactions | isolation levels, locking, migrations, pools | Planned (phase 2) |
+| 03 | [Build tools](tracks/03-build-tools/) | Maven lifecycle, coordinates, versions, scopes, wrapper | mediation, BOMs, plugins, multi-module reactor, profiles, Gradle | reproducible builds, classpath conflicts, fast CI, releases, supply chain | **Built**: 3 lessons, 7 katas, a Maven playground, 60 questions |
+| 04 | [SQL and databases](tracks/04-sql/) | joins, grouping, NULL logic, JDBC, SQL injection | indexes and EXPLAIN, window functions, keyset pagination, upserts | MVCC, locking, isolation and write skew, zero-downtime migrations | **Built**: 3 lessons, 9 katas on a real PostgreSQL, 60 questions |
 | 05 | Web, HTTP, REST | methods, status codes, headers, JSON | REST design, idempotency, caching, CORS | rate limits, timeouts, retries, versioning | Planned (phase 3) |
 | 06 | Spring core | IoC, dependency injection, beans | scopes, lifecycle, configuration, profiles | proxies and AOP, self-invocation, circular dependencies | Planned (phase 3) |
 | 07 | Spring Boot web | auto-configuration, controllers, request flow | validation, error handling, filters vs interceptors | actuator, graceful shutdown, observability | Planned (phase 3) |
