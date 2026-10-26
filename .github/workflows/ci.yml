@@ -22,7 +22,7 @@ jobs:
           cache-dependency-path: katas/pom.xml
 
       - name: Verify every kata fails unsolved and passes with its reference solution
-        run: MIN_KATAS=94 bash scripts/verify-katas.sh
+        run: MIN_KATAS=100 bash scripts/verify-katas.sh
 
       - name: Install Node 22
         uses: actions/setup-node@v4

@@ -24,7 +24,7 @@ DSA problems appear inside the tracks where real systems use them (LRU cache nex
 
 ## Quick start
 
-Requires JDK 21 (Maven is downloaded by the wrapper). The SQL katas start a real PostgreSQL inside the tests: no Docker needed.
+Requires JDK 21 (Maven is downloaded by the wrapper) and, for the JavaScript/TypeScript and React tracks, Node 22. The SQL and JPA katas start a real PostgreSQL inside the tests: no Docker needed.
 
 ```
 java quiz/Quiz.java                                   # 10 questions: the ones due for review first, then new ones
@@ -37,7 +37,14 @@ java tracks/02-concurrency/examples/RaceCondition.java    # run an example
 cd katas
 ./mvnw test -Dgroups="javacore & L1"                  # the katas of one track and level (they fail until you solve them)
 ./mvnw test -Dtest=LruCacheTest                        # one kata
+
+cd web-katas && npm install                            # tracks 12 and 13
+npx vitest run src/react/l1                            # one level (npx vitest ... to watch)
 ```
+
+Kata tags (`-Dgroups`): `javacore`, `concurrency`, `build`, `sql`, `web`, `spring`, `boot`, `jpa`, `security`, `testing`, `docker`, `ops` (track 14), `design`; combine with `L1`..`L3`.
+
+**In total:** 15 tracks, 45 lessons, 100 Java katas and 13 TypeScript/React katas (each proven by CI to fail unsolved and pass with its reference solution), 902 questions, runnable examples, a Maven playground, and Docker/Kubernetes reference files.
 
 **How the quiz remembers:** after each answer you say whether you knew it (`y`), partly (`p`) or not (`n`). Questions move through boxes asked again after 1, 3, 7, 14, then 30 days; a miss sends a question back to box 1 and asks it again before the session ends (spaced repetition, Leitner system). Your progress is stored in `.dojo/progress.tsv`, which is not committed.
 
@@ -65,7 +72,11 @@ Ordered so that each track builds on the ones before it.
 | 12 | [JavaScript and TypeScript](tracks/12-js-ts/) | equality, closures, `this`, modules, TypeScript basics | event loop, promises, concurrency limits, debounce/throttle | advanced types, runtime validation, leaks, performance, tooling | **Built**: 3 lessons, 7 katas (TypeScript, Vitest), 60 questions |
 | 13 | [React](tracks/13-react/) | components, JSX, props, state, forms, keys, Testing Library | hooks, effects, race-free fetching, forms, context, routing | re-renders, error boundaries, persistence, a11y, security, SSR/RSC | **Built**: 3 lessons, 6 katas (Testing Library), 60 questions |
 | 14 | [Git, Linux, networking](tracks/14-git-linux-networking/) | Git object model, shell, permissions, processes, IP/CIDR, DNS, TCP | merge vs rebase, reflog, team workflows, log slicing, connection debugging | bisect, production debugging, TLS, keep-alive and load balancers | **Built**: 3 lessons, 7 katas, 60 questions |
-| 15 | System design | caching, queues, scaling vocabulary | messaging, consistency, idempotency | full design interviews, using the shop as the case study | Planned (phase 7) |
+| 15 | [System design](tracks/15-system-design/) | method, estimates, building blocks, partitioning, availability | URL shortener, ids, caching, queues, consistency, classic designs | CAP/PACELC, quorums, sagas, consensus, multi-region, practice interviews | **Built**: 3 lessons, 6 katas, 60 questions |
+
+## Interview day
+
+[interview/README.md](interview/README.md): seven timed practice sessions that mix the quiz, live katas and design rounds the way real interview loops do (Java screen, Spring and data, SQL, full-stack and frontend, production engineering, system design, a mixed mock), plus 10-minute daily drills.
 
 ## Global paths
 
@@ -91,16 +102,21 @@ tracks/NN-topic/
   L3-production.md
   questions.md         the question bank (parsed by the quiz)
   examples/*.java      runnable single-file programs
+  examples/            (track 11: Dockerfile, compose.yaml, deployment.yaml)
 katas/                 one Maven project; tests tagged by track and level
   src/main/java/dojo/<track>/l1..l3/   what you edit
   src/test/java/dojo/<track>/l1..l3/   the tests (do not edit)
+web-katas/             TypeScript + Vitest + Testing Library (tracks 12-13)
+  src/js/l1..l3/, src/react/l1..l3/    the kata and its .test.ts(x) side by side
 solutions/katas/       reference solutions, same paths
+solutions/web-katas/
 quiz/Quiz.java         the drill (no dependencies)
-scripts/verify-katas.sh
+interview/             timed mixed practice sessions
+scripts/verify-katas.sh, scripts/verify-web-katas.sh
 ```
 
-**CI** (`.github/workflows/ci.yml`) proves, on every push, that every kata fails without its solution and passes with it, that every question has an answer and a valid id, and that every example compiles. If a kata is broken, CI says so.
+**CI** (`.github/workflows/ci.yml`) proves, on every push, that every kata (Java and TypeScript) fails without its solution and passes with it, that every question has an answer and a valid id, and that every example compiles. If a kata is broken, CI says so.
 
 ## Writing your own solutions
 
-Work directly in `katas/src/main/java`. To reset a kata to its unsolved state: `git checkout -- katas/src/main/java/dojo/<track>/<level>/<Kata>.java`. To compare with the reference: `diff katas/src/main/java/dojo/... solutions/katas/src/main/java/dojo/...`. Look at the solution only after your tests pass, or after a real attempt.
+Work directly in `katas/src/main/java` (or `web-katas/src`). To reset a kata to its unsolved state: `git checkout -- katas/src/main/java/dojo/<track>/<level>/<Kata>.java`. To compare with the reference: `diff katas/src/main/java/dojo/... solutions/katas/src/main/java/dojo/...`. Look at the solution only after your tests pass, or after a real attempt.
