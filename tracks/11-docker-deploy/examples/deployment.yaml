@@ -1,0 +1,70 @@
+# A Kubernetes Deployment + Service for the app (L3). kubectl apply -f deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1            # one extra pod during the rollout
+      maxUnavailable: 0      # never fewer than 3 ready pods
+  selector:
+    matchLabels: { app: shop }
+  template:
+    metadata:
+      labels: { app: shop }
+    spec:
+      terminationGracePeriodSeconds: 45      # > preStop sleep + Spring's graceful shutdown timeout
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+      containers:
+        - name: shop
+          image: ghcr.io/acme/shop:1.4.2     # an immutable tag (or a digest), never :latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef: { name: shop-db, key: password }
+            - name: SERVER_SHUTDOWN
+              value: graceful
+          resources:
+            requests: { cpu: "500m", memory: "768Mi" }   # what the scheduler reserves
+            limits: { memory: "768Mi" }                   # above this: OOMKilled. No CPU limit: avoids throttling
+          startupProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8080 }
+            periodSeconds: 5
+            failureThreshold: 30                          # up to 150 s to start
+          livenessProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8080 }
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet: { path: /actuator/health/readiness, port: 8080 }
+            periodSeconds: 5
+            failureThreshold: 2
+          lifecycle:
+            preStop:
+              exec: { command: ["sleep", "10"] }          # let endpoints/load balancers stop routing first
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          volumeMounts:
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shop
+spec:
+  selector: { app: shop }
+  ports:
+    - port: 80
+      targetPort: 8080
