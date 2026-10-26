@@ -64,7 +64,7 @@ Ordered so that each track builds on the ones before it.
 | 11 | [Docker and deployment](tracks/11-docker-deploy/) | containers, images, tags and digests, Dockerfiles | layers and caching, compose, probes, networking, config | JVM in containers, graceful shutdown, Kubernetes, rollouts, CI/CD | **Built**: 3 lessons, 6 katas, 3 reference files, 60 questions |
 | 12 | JavaScript and TypeScript | types, closures, `this`, async/await | event loop, promises, modules, generics | performance, leaks, bundling | Planned (phase 6) |
 | 13 | React | components, JSX, props, state | hooks, effects, data fetching, forms, tests | rendering performance, state architecture, a11y, security | Planned (phase 6) |
-| 14 | Git, Linux, networking | commits, branches, shell | rebase vs merge, processes, DNS, TCP | debugging production, TLS | Planned (phase 5) |
+| 14 | [Git, Linux, networking](tracks/14-git-linux-networking/) | Git object model, shell, permissions, processes, IP/CIDR, DNS, TCP | merge vs rebase, reflog, team workflows, log slicing, connection debugging | bisect, production debugging, TLS, keep-alive and load balancers | **Built**: 3 lessons, 7 katas, 60 questions |
 | 15 | System design | caching, queues, scaling vocabulary | messaging, consistency, idempotency | full design interviews, using the shop as the case study | Planned (phase 7) |
 
 ## Global paths
