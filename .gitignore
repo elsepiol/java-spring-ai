@@ -5,3 +5,4 @@ katas/target/
 *.iml
 .vscode/
 node_modules/
+tracks/03-build-tools/playground/**/target/
