@@ -48,6 +48,8 @@ public class Quiz {
 	}
 
 	public static void main(String[] args) throws IOException {
+		// Questions contain non-ASCII text (arrows, multiplication signs); do not depend on the console default.
+		System.setOut(new java.io.PrintStream(new java.io.FileOutputStream(java.io.FileDescriptor.out), true, StandardCharsets.UTF_8));
 		Map<String, String> opts = parseArgs(args);
 		Path root = findRoot();
 		List<String> problems = new ArrayList<>();
@@ -221,7 +223,7 @@ public class Quiz {
 			Question q = queue.poll();
 			Card card = progress.getOrDefault(q.id(), Card.NEW);
 			System.out.println("=".repeat(72));
-			System.out.printf("%s   [%s · L%d · %s]   box %d%n%n", q.id(), q.track(), q.level(), q.kind(), card.box());
+			System.out.printf("%s   [%s | L%d | %s]   box %d%n%n", q.id(), q.track(), q.level(), q.kind(), card.box());
 			System.out.println(q.text());
 			System.out.print("\n(Enter to reveal the answer) ");
 			if (in.readLine() == null) {
