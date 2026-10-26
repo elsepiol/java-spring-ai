@@ -104,6 +104,21 @@
       <artifactId>spring-boot-starter-actuator-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- Track 09 (security): Spring Security itself, without Spring Boot's security auto-configuration
+         (spring-boot-starter-security would lock every other web kata behind a login). -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
     <!-- Track 04 (SQL): the JDBC driver. Your kata code talks to PostgreSQL through it. -->
     <dependency>
       <groupId>org.postgresql</groupId>
