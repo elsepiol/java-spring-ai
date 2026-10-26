@@ -21,6 +21,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>6.0.3</junit.version>
     <assertj.version>3.27.7</assertj.version>
+    <postgresql.version>42.7.14</postgresql.version>
+    <embedded-postgres.version>2.2.2</embedded-postgres.version>
+    <postgres-binaries.version>17.11.0</postgres-binaries.version>
   </properties>
 
   <dependencyManagement>
@@ -32,10 +35,42 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <!-- Which PostgreSQL the embedded database runs: one version for every OS and CPU. -->
+      <dependency>
+        <groupId>io.zonky.test.postgres</groupId>
+        <artifactId>embedded-postgres-binaries-bom</artifactId>
+        <version>${postgres-binaries.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
+    <!-- Track 04 (SQL): the JDBC driver. Your kata code talks to PostgreSQL through it. -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
+    <!-- A real PostgreSQL started inside the test JVM: no Docker, no installation. -->
+    <dependency>
+      <groupId>io.zonky.test</groupId>
+      <artifactId>embedded-postgres</artifactId>
+      <version>${embedded-postgres.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Not included by default: Apple Silicon Macs and ARM Linux. -->
+    <dependency>
+      <groupId>io.zonky.test.postgres</groupId>
+      <artifactId>embedded-postgres-binaries-darwin-arm64v8</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.zonky.test.postgres</groupId>
+      <artifactId>embedded-postgres-binaries-linux-arm64v8</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>

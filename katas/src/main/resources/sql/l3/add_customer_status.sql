@@ -1,0 +1,12 @@
+-- KATA sql L3 "add_customer_status": tracks/04-sql/L3-production.md, section 6 (migrations without downtime).
+-- The new app version needs customers.status ('ACTIVE' or 'BLOCKED'). During the rolling deploy
+-- the OLD version keeps running and inserting customers WITHOUT a status. Write the migration
+-- (Flyway would run this file once) so that:
+--   * every existing customer is 'ACTIVE', and the column is NOT NULL;
+--   * the old version's INSERT (which does not mention status) keeps working and gets 'ACTIVE';
+--   * only 'ACTIVE' and 'BLOCKED' are allowed, enforced by a VALIDATED check constraint named customers_status_check;
+--   * finding blocked customers is fast, with an index that contains only the blocked ones,
+--     named customers_blocked_idx.
+-- Each statement should hold strong locks for as short as possible on a big table: the lesson
+-- explains which forms are instant and which rewrite or scan the table.
+SELECT 1;
