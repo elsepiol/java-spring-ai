@@ -19,7 +19,7 @@ Money.java  --javac-->  Money.class (bytecode)  --java-->  JVM: loads classes, i
 
 - **JDK** (Java Development Kit): compiler `javac`, the `java` launcher, tools (`jcmd`, `jstack`, `jar`), and the runtime. You install a JDK to build.
 - **JVM** (Java Virtual Machine): the program that runs bytecode. The same `.class` file runs on Linux, macOS and Windows because each has its own JVM. "Write once, run anywhere".
-- **JRE**: the runtime without the tools. Since Java 11 there is no separate JRE download; production images use a JDK or a trimmed runtime made with `jlink`.
+- **JRE**: the runtime without the tools. Oracle stopped shipping a separate JRE with Java 11; some vendors (e.g. Eclipse Temurin) still publish JRE builds, which make smaller production images. You can also build a trimmed runtime with `jlink`.
 - **Bytecode** is not machine code. The JVM starts by interpreting it, measures which methods are hot, and compiles those with the JIT (just-in-time) compiler. This is why Java services are slower for the first seconds after start ("warm-up", L3).
 - `java Hello.java` (Java 11+) compiles in memory and runs a single file. The examples in this dojo use it.
 - A real project has many classes and libraries (`.jar` files = zip files of classes). The **classpath** tells the JVM where to find them. Build tools (Maven, track 03) manage it for you.

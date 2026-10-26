@@ -13,7 +13,7 @@ What are the JDK, the JRE and the JVM, and which one do you need to build a proj
 <details><summary>Answer</summary>
 
 - **JVM**: the virtual machine that runs bytecode (interprets it, JIT-compiles hot code).
-- **JRE**: the runtime (JVM + standard library) without development tools. No separate download since Java 11.
+- **JRE**: the runtime (JVM + standard library) without development tools. Oracle stopped shipping one with Java 11; vendors like Eclipse Temurin still publish JRE builds (handy for slim images).
 - **JDK**: the JRE plus `javac`, `jar`, `jcmd`, `jstack`, etc.
 
 You need a **JDK** to build. Bytecode is portable because every platform has its own JVM.
