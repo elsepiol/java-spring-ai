@@ -22,7 +22,7 @@ jobs:
           cache-dependency-path: katas/pom.xml
 
       - name: Verify every kata fails unsolved and passes with its reference solution
-        run: MIN_KATAS=38 bash scripts/verify-katas.sh
+        run: MIN_KATAS=62 bash scripts/verify-katas.sh
 
       - name: Build the build-tools playground (multi-module Maven, enforcer rules)
         run: katas/mvnw -B -f tracks/03-build-tools/playground verify

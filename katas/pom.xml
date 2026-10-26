@@ -18,6 +18,9 @@
 
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
+    <!-- javac -parameters: keep method parameter names in the bytecode, so Spring MVC can bind
+         @PathVariable long id without @PathVariable("id"). spring-boot-starter-parent sets this for you. -->
+    <maven.compiler.parameters>true</maven.compiler.parameters>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>6.0.3</junit.version>
     <assertj.version>3.27.7</assertj.version>
