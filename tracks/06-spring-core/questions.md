@@ -382,7 +382,7 @@ JDK dynamic proxy vs CGLIB proxy?
 
 <details><summary>Answer</summary>
 
-JDK proxies implement the bean's interfaces; only interface methods are advised; the proxy cannot be cast to the class. CGLIB creates a runtime subclass of the class; works without interfaces (Boot's default), but cannot advise final classes or final, private or static methods, and calls the class constructor rules (objenesis avoids double construction).
+JDK proxies implement the bean's interfaces; only interface methods are advised; the proxy cannot be cast to the class. CGLIB creates a runtime subclass of the class; works without interfaces (Boot's default), but cannot advise final classes or final, private or static methods (Spring uses Objenesis so the class constructor is not run twice for the proxy).
 
 </details>
 
