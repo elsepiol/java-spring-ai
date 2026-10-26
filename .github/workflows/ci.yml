@@ -24,6 +24,16 @@ jobs:
       - name: Verify every kata fails unsolved and passes with its reference solution
         run: MIN_KATAS=94 bash scripts/verify-katas.sh
 
+      - name: Install Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web-katas/package-lock.json
+
+      - name: Verify the web katas (tracks 12-13) the same way
+        run: MIN_WEB_KATAS=7 bash scripts/verify-web-katas.sh
+
       - name: Build the build-tools playground (multi-module Maven, enforcer rules)
         run: katas/mvnw -B -f tracks/03-build-tools/playground verify
 
